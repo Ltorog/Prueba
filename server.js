@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || '3000'; // Variable de entorno o puerto 3000
+const PORT = process.env.PORT || '6000'; // Variable de entorno o puerto 3000
 
 const app = express();
 
