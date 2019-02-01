@@ -1,8 +1,4 @@
-'use strict';
-const Sequelize = require('sequelize');
-const {client} = require('pg');
-const sequelize = new Sequelize('postgres://postgres:root@localhost:5432/backend');
-const models = require('../models');
+const db = require('../models');
 
 //Funcion autenticar
 function Student(req,res){
@@ -40,6 +36,10 @@ function Student(req,res){
 
 function regression(req, res) {
     res.status(200).send({message: "all right"});
+    db.sequelize.query(`SELECT * FROM students LIMIT 3`, { type: db.Sequelize.QueryTypes.SELECT })
+    .then(student => {
+        console.log(student);
+    });
 }
 
 // Exportando las funciones para que se puedan ver
