@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 // Rutas
-require('./Api/routes/students')(app);
+require('./api/routes/index.js')(app);
 
 
 // Cabeceras
