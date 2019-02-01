@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false
     });
-    Teachers.associate = function(models) {
+    /*Teachers.associate = function(models) {
         Teachers.hasMany(models.courses, { as: 'Teachers', foreignKey: 'teacher_fk' });
-    };
+    };*/
     return Teachers;
 }

@@ -17,12 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false
     });
-    Courses.associate = function(models) {
+    /*Courses.associate = function(models) {
         Courses.hasOne(models.teachers, { foreignKey: 'teacher_fk' });
         Courses.hasOne(models.subjects, { foreignKey: 'subject_fk' });
         Courses.hasMany(models.finished_courses, { as: 'Courses', foreignKey: 'course_fk' });
-    };
-
+    };*/
 
     return Courses;
 }

@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false
     });
-    Finished_courses.associate = function(models) {
+    /*Finished_courses.associate = function(models) {
         Finished_courses.hasOne(models.courses, { as: 'Finished_courses', foreignKey: 'course_fk' });
         Finished_courses.hasOne(models.students, { as: 'Finished_students', foreignKey: 'student_fk' });
-    };
+    };*/
     return Finished_courses;
 }
