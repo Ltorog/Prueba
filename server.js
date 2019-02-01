@@ -2,16 +2,12 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || '6000'; // Variable de entorno o puerto 3000
+const PORT = process.env.PORT || '8080'; // Variable de entorno o puerto 6000
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
-// Rutas
-require('./api/routes/index.js')(app);
-
 
 // Cabeceras
 app.use((req, res, next) => {
@@ -21,6 +17,10 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
+
+// Rutas
+require('./api/routes/index.js')(app);
+require('./api/routes/students')(app);
 
 // Conexion
 app.get('/', (req, res) => {
@@ -33,3 +33,4 @@ server.listen(PORT, function() {
   console.log('Servidor disponible en el puerto: ' + PORT);
 });
 
+module.exports = app;

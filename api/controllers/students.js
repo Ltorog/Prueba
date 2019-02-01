@@ -1,62 +1,32 @@
 const db = require('../models');
-const reggresion = require('regression')
+const regression = require('regression');
+const Sequelize = require('sequelize');
+const {client} = require('pg');
+sequelize = new Sequelize(`postgres://postgres:root@localhost:5432/Backend`)
+
+
 
 //Funcion busqueda de rut
-/*function Student(req,res){
-    const param = req.body;
-    const rut = params.rut;
-    const apiKey = params.apiKey;
-
-    sequelize.query(`SELECT a1.birthdate, a1.first_name AS "firstName",(CASE WHEN a1.gender =0 THEN 'FEMENINO' ELSE 'MASCULINO' END) AS gender, a1.last_name AS "lastName", 
-    a1.rut FROM students a1 INNER JOIN TOKENS a2 on a1.rut = a2.rut WHERE a2.rut = ${rut}`, { type: Sequelize.QueryTypes.SELECT })
-
-    .then(student =>{
-        //Si no coindicen los resultados con lo socilitado, se entrega error 400
-        if (student==''){
-            res.status(400).send({message: "Alumno inexistente"});
-        }
-
-        //Si se obtienen resultados
-        else{
-            //Si se encuentra al estudiante, se entrega respuesta 200
-            if(params.apiKey = apiKey){
-                res.status(200).send(student);
-            }
-            //Sino, se entrega error 404
-            else{
-                res.status(404).send({message: "Página no encontrada"})
-            }
-        }
-    })
-
-    //Si no se logra conexión, existe error 500
-    .catch(err=>{
-        res.status(500).send(err);
-    })
-}
-
-*/
-
-function regression(req, res) {
+function regresion(req, res) {
     //inicializan variables
     const param=req.body;
-    var rut = req.param.rut;
-    var apiKey = req.header('apiKey')
+    var rut = param.rut;
+    var apiKey = req.header('apikey')
 
     //Se normaliza rut, sin puntos ni digito verificador
-    rut = rut.replace(/\./g, '');
-    rut = rut.replace(/\-/g, '');
-    rut = rut.substring(0,rut.length -1);  
+   // rut = rut.replace(/\./g, '');
+    //rut = rut.replace(/\-/g, '');
+//    rut = rut.substring(0,rut.length -1);  
 
     sequelize.query(`select promedio, stddev, year, birthdate,firstName, lastName,
-	gender , rut, apiKey from
+	gender , rut, api_key from
     (select round(avg(a2.grade),2)  as promedio, round(coalesce(stddev_samp(a2.grade),0),3) as stddev, a3.year as year, a1.first_name as firstName, a1.last_name as lastName,
-	 (case when a1.gender=0 then 'FEMENINO' else 'MASCULINO' end )as gender, a1.rut as rut, a1.birthdate as birthdate, a4.apiKey as apiKey
+	 (case when a1.gender=0 then 'FEMENINO' else 'MASCULINO' end )as gender, a1.rut as rut, a1.birthdate as birthdate, a4.api_key as api_key
     from students as a1 inner join finished_courses as a2 on a1.pk = a2.student_fk inner join courses as a3 on a2.course_fk = a3.pk inner join tokens a4
 	 on a4.rut = a1.rut
     where a1.rut=${rut}
-    group by a3.year, a1.first_name, a1.last_name, a1.gender, a1.rut, a1.birthdate, a4.apiKey) as nota
-    group by nota.promedio, nota.stddev, nota.firstName, nota.year, nota.birthdate, nota.rut, nota.lastName, nota.gender, nota.apiKey
+    group by a3.year, a1.first_name, a1.last_name, a1.gender, a1.rut, a1.birthdate, a4.api_key) as nota
+    group by nota.promedio, nota.stddev, nota.firstName, nota.year, nota.birthdate, nota.rut, nota.lastName, nota.gender, nota.api_key
     order by year desc
 `, { type: Sequelize.QueryTypes.SELECT })
 
@@ -67,15 +37,16 @@ function regression(req, res) {
         }
         else{
             //Si existe, se separan los datos recolectados de la BD
-            if(apiKey==student[0].apikey){
-                var regresion=[]
+            if(apiKey==student[0].api_key){
+                var reg=[]
                 var jsonData = {data:[]}
 
                 //Se insertan los datos segun perfil de año, el promedio y desviación correspondiente
                 for(var i in student){
+                    var aux1=[]
                     aux1.push(parseInt(student[i].year))
                     aux1.push(parseFloat(student[i].promedio))
-                    query.push(aux1)
+                    reg.push(aux1)
                     jsonData.data.push({
                         "year": parseInt(student[i].year),
                         "average": parseFloat(student[i].promedio),
@@ -84,7 +55,7 @@ function regression(req, res) {
                 }
             
             //Mediante la función regression se realizan los calculos automáticos
-            const resultado = regression.linear(query);
+            const resultado = regression.linear(reg);
 
             //Pendiente
             jsonData["m"] = resultado.equation[0];
@@ -112,11 +83,6 @@ function regression(req, res) {
             }
         }
     })
-    res.status(200).send({message: "all right"});
-    db.sequelize.query(`SELECT * FROM students LIMIT 3`, { type: db.Sequelize.QueryTypes.SELECT })
-    .then(student => {
-        console.log(student);
-    });
 }
 
 // Exportando las funciones para que se puedan ver
@@ -124,5 +90,5 @@ function regression(req, res) {
 // Si las funciones no estan dentro de este objeto entonces no son
 // visibles para quien use los controladores.
 module.exports = {
-    regression: regression
+    regresion
 }
