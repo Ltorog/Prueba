@@ -2,12 +2,12 @@ const Sequelize = require('sequelize')
 
 
 //Creación de modelos
-const ModeloStudents = require('./api/models/')
-const ModeloCourses = require('./api/models/')
-const ModeloFinished_courses = require('./api/models/')
-const ModeloTeachers = require('./api/models/')
-const ModeloToken = require('./api/models/')
-const ModeloSubject = require('./api/models/')
+const ModeloStudents = require('./api/models/students')
+const ModeloCourses = require('./api/models/courses')
+const ModeloFinished_courses = require('./api/models/finished_courses')
+const ModeloTeachers = require('./api/models/teachers')
+const ModeloToken = require('./api/models/tokens')
+const ModeloSubject = require('./api/models/subjects')
 
 const sequelize = new Sequelize('postgres://backend:backend@localhost:5432/backend')
 
