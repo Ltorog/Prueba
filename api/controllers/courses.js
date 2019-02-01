@@ -9,3 +9,7 @@ const Finished_Courses = models.finished_courses;
 const Courses = models.courses;
 const Subjects = models.subjects;
 
+module.exports = {
+  list: function() { return 'hi'}
+}
+

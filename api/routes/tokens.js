@@ -1,6 +1,8 @@
 const express = require('express');
-const TokenController = require('../controllers/tokens');
+const router = express.Router();
+const tokensController = require('../controllers/tokens');
 
-module.exports = (app) => {
+// Index
+router.get('/authenticate', tokensController.authenticate);
 
-}
+module.exports = router;

@@ -3,6 +3,6 @@ const router = express.Router();
 const studentsController = require('../controllers/students');
 
 // Index
-router.get('/', studentsController.list);
+router.get('/regression/{rut}', studentsController.regression);
 
 module.exports = router;

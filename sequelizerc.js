@@ -9,7 +9,7 @@ const ModeloTeachers = require('./api/models/')
 const ModeloToken = require('./api/models/')
 const ModeloSubject = require('./api/models/')
 
-const sequelize = new Sequelize('postgres://postgres:postgres:root@localhost:5432/backend')
+const sequelize = new Sequelize('postgres://backend:backend@localhost:5432/backend')
 
 //Comando Sequelize
 const Students = ModeloCourses(sequelize,sequelize)

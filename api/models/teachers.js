@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         birthdate: DataTypes.DATE,
 
 
+    }, {
+        timestamps: false
     });
     Teachers.associate = function(models) {
         Teachers.hasMany(models.courses, { as: 'Teachers', foreignKey: 'teacher_fk' });

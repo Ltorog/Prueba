@@ -37,3 +37,15 @@ function Student(req,res){
         res.status(500).send(err);
     })
 }
+
+function regression(req, res) {
+    res.status(200).send({message: "all right"});
+}
+
+// Exportando las funciones para que se puedan ver
+// desde los modulos que llaman a los controladores.
+// Si las funciones no estan dentro de este objeto entonces no son
+// visibles para quien use los controladores.
+module.exports = {
+    regression: regression
+}

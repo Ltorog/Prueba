@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         student_fk: DataTypes.BIGINT,
         grade: DataTypes.BIGINT,
         status: DataTypes.INTEGER
+    }, {
+        timestamps: false
     });
     Finished_courses.associate = function(models) {
         Finished_courses.hasOne(models.courses, { as: 'Finished_courses', foreignKey: 'course_fk' });

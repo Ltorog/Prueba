@@ -1,14 +1,22 @@
-'use strict';
-const Sequelize = require('sequelize');
-const { client } = require('pg');
-const sequelize = new Sequelize('postgres://postgres:root@localhost:5432/backend');
-const jwt = require('../jwt');
-const models = require('../models');
-const Tokens = models.tokens;
+// const jwt = require('../jwt');
+
+const db = require('../models');
+const Students = db.students;
+
+Students.findAll({})
+.then(console.log)
 const secret = 'xxxx';
 
 function authenticate(req, res) {
-    
+    // Aca va la funcion para autenticar
+
+    // consultar base de datos
+
+    // existe? 
+
+    // Contraseña correcta? junto con su rut?
+
+
 }
     
 module.exports = {

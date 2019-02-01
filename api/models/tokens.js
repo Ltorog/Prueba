@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         role: DataTypes.STRING
 
 
+    }, {
+        timestamps: false
     })
     return Tokens;
 }

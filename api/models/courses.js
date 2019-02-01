@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         teacher_fk: DataTypes.BIGINT,
         section: DataTypes.INTEGER,
 
+    }, {
+        timestamps: false
     });
     Courses.associate = function(models) {
         Courses.hasOne(models.teachers, { foreignKey: 'teacher_fk' });
